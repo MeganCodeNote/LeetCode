@@ -18,7 +18,7 @@ public class RemoveNthFromEnd {
         }
 
         // move both pointer until iter1 points to null
-        ListNode dummy = new ListNode(0);
+        ListNode dummy = new ListNode(0); // have to use a dummy to get the the node PREVIOUS to the target node
         dummy.next = head;
         ListNode iter2 = dummy;
         while (iter1 != null) {
@@ -44,7 +44,7 @@ public class RemoveNthFromEnd {
         if (n <= 0 || n > len) {
             return head;
         }
-        // move to the node previous to the node to be delete
+        // move to the node previous to the target node
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         iter = dummy;

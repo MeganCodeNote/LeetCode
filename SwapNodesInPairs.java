@@ -1,8 +1,6 @@
 
 public class SwapNodesInPairs {
-	
-	//------------- 1. Space constrain & could not change val ---------------//
-
+    //------------- 1. Space constrain & could not change val ---------------//
     public ListNode swapPairs(ListNode head) {
         // input validation, if there is 0 or 1 node
         if(head == null || head.next == null) {
@@ -26,10 +24,8 @@ public class SwapNodesInPairs {
         }
         return dummy.next;
     }
-    
-    
-	//------------- 2. Recursion Version, no space constraint ---------------//
 
+    //------------- 2. Recursion Version, no space constraint ---------------//
     public ListNode swapPairs2(ListNode head) {
         // base case: num(nodes) <= 1
         if (head == null || head.next == null) {
@@ -38,9 +34,9 @@ public class SwapNodesInPairs {
 
         // general case: num(nodes) >= 2
         ListNode newHead = head.next;
-        ListNode post = head.next.next;
+        ListNode rest = head.next.next;
         newHead.next = head;
-        head.next = swapPairs2(post);
+        head.next = swapPairs2(rest);
         
         return newHead;
     }

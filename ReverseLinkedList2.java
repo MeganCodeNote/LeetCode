@@ -24,7 +24,7 @@ public class ReverseLinkedList2 {
     
     /////////////////////    TEST    /////////////////////////
     private static void test(ReverseLinkedList2 solution, int[] x, int m, int n) {
-        ListNode list = new ListNode(x);
+        ListNode list = ListNode.fromArray(x);
         ListNode res = solution.reverseBetween(list, m, n);
         System.out.println(res.toString());
     }
