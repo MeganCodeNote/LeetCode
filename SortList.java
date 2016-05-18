@@ -54,17 +54,17 @@ public class SortList {
         if (head == null || head.next == null) {
             return head;
         }
-        // step 1: find middle
+        // step 1: find middle, divide into 2 list
         ListNode tail1 = findMiddle(head);
         ListNode head2 = tail1.next;
         tail1.next = null;
 
         // step 2: divdie and conquer
-        head = sortList(head);
-        head2 = sortList(head2);
+        head1 = sortList(head);   // recursive call
+        head2 = sortList(head2);  // recursive call
 
         // step 3: merge two lists
-        return merge(head, head2);
+        return merge(head1, head2);
     }
 
     private ListNode findMiddle(ListNode head) {
@@ -93,7 +93,32 @@ public class SortList {
         return dummy.next;
     }
 
+    //--------------- Solution 3 ----------------//
+    // Arrays.sort()
+    public ListNode sortList3(ListNode head) {
+        // input validation
+        if (head == null || head.next == null) {
+            return head;
+        }
 
+        // put all vals in an ArrayList
+        List<Integer> vals = new ArrayList();
+        ListNode cur = head;
+        while (cur != null) {
+            vals.add(cur.val);
+            cur = cur.next;
+        }
+        Collections.sort(vals);
+
+        // update original list's vals
+        cur = head;
+        for (int val: vals) {
+            cur.val = val;
+            cur = cur.next;
+        }
+
+        return head;
+    }
 
     //////////////////  TEST  ///////////////////
     public static void test(SortList solution, int[] x) {

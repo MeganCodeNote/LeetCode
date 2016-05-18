@@ -10,11 +10,12 @@ public class InsertionSortList {
             while (pre.next != null && pre.next.val < cur.val) {
                 pre = pre.next;
             }
-            // step 2: insert node in
+            // step 2: Record for updating cur
             ListNode next = cur.next;
+            // step 3: insert
             cur.next = pre.next;
             pre.next = cur;
-            // step 3: update cur
+            // step 4: update cur
             cur = next;
         }
         return dummyHead.next;
@@ -22,7 +23,7 @@ public class InsertionSortList {
 
     //////////////////  TEST  ///////////////////
     public static void test(InsertionSortList solution, int[] x) {
-        ListNode l = new ListNode(x);
+        ListNode l = ListNode.fromArray(x);
         System.out.println(solution.insertionSortList(l));
     }
 
