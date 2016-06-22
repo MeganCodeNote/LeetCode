@@ -53,7 +53,7 @@ public class RemoveListDupes2 {
     /////////////////   TEST /////////////////
     public static void main(String[] args) {
     		int[] x = {1,2,2,3};
-		ListNode list = new ListNode(x);
+		ListNode list = ListNode.fromArray(x);
 		System.out.println((new RemoveListDupes2()).deleteDuplicates(list));
 	}
 }

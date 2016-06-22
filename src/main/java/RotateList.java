@@ -25,7 +25,7 @@ public class RotateList {
     
     ///////////////////  TEST  ///////////////////
     public static void test(RotateList solution, int[] x, int k) {
-        ListNode n = new ListNode(x);
+        ListNode n = ListNode.fromArray(x);
         System.out.println(solution.rotateRight(n, k));
 
     }

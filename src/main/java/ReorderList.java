@@ -85,7 +85,7 @@ public class ReorderList {
 
     ///////////////////  TEST  ///////////////////
     public static void test(ReorderList solution, int[] x) {
-        ListNode list = new ListNode(x);
+        ListNode list = ListNode.fromArray(x);
         solution.reorderList2(list);
         System.out.println(list);
     }

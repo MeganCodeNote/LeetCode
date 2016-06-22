@@ -1,32 +1,30 @@
-/* 10/22/2014 */
-
-import java.util.Arrays;
-
 public class UniquePath2 {
     //---------------------- Solution 1 ------------------------//
     // pure recursion (time limit exceed)
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        /**
+         * other checking: each row [1 -> len-1] must be non-null and has the same len with row 0
+         * assume that each element is only 0 or 1
+         */
         // input checking
         if (obstacleGrid == null || obstacleGrid.length == 0 || obstacleGrid[0] == null || obstacleGrid[0].length == 0) {
             return 0;
         }
-        // otherchecking: each row [1 -> len-1] must be non-null and has the same len with row 0
-        // assume that each element is only 0 or 1
 
         // m > 0 && n >0
         int m = obstacleGrid.length, n = obstacleGrid[0].length;
         return helper(obstacleGrid, m, n);
     }
 
-    private int helper(int[][] grid, int m, int n) {
-        if (grid[m - 1][n - 1] == 1) {  // obstacle
+    private int helper(int[][] grid, int row, int col) {
+        if (grid[row - 1][col - 1] == 1) {  // obstacle
             return 0;
         } else {
             // base case
             if (row == 0 || col == 0) { // non-obstacle
                 return 1;
             }
-            // genearl case
+            // general case
             return helper(grid, row - 1, col) + helper(grid, row, col - 1);
         }
     }
@@ -39,8 +37,6 @@ public class UniquePath2 {
         if (obstacleGrid == null || obstacleGrid.length == 0 || obstacleGrid[0] == null || obstacleGrid[0].length == 0) {
             return 0;
         }
-        // otherchecking: each row [1 -> len-1] must be non-null and has the same len with row 0
-        // assume that each element is only 0 or 1
 
         // m > 0 && n >0
         int m = obstacleGrid.length, n = obstacleGrid[0].length;
@@ -48,7 +44,7 @@ public class UniquePath2 {
         return numOfpaths(obstacleGrid, m, n, cache);
     }
 
-    private int numOfpaths(int[][] grid, int m, int n, int[][] cache) {
+    private int numOfpaths(int[][] grid, int row, int col, int[][] cache) {
         // base case
         if ((row < 0 || col < 0) || grid[row][col] == 1) {  // minus index || obstacle order is important!!!
             return 0;

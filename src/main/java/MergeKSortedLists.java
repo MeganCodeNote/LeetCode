@@ -43,7 +43,7 @@ public class MergeKSortedLists {
     
     /*------------------- Solution 2 ------------------------*/
     // Divide and conquer: O(nklg(k)) competition tree
-    public ListNode mergeKLists(ListNode[] lists) {
+    public ListNode mergeKLists2(ListNode[] lists) {
         // input validation
         if (lists == null || lists.length == 0) {
             return null;

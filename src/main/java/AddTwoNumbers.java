@@ -80,17 +80,20 @@ public class AddTwoNumbers {
 
     ////////////////// TEST ///////////////////////
     private static void test(AddTwoNumbers solution, int[] l1, int[] l2) {
-        ListNode sum = solution.addTwoNumbers3(new ListNode(l1), new ListNode(l2));
+        ListNode head1 = ListNode.fromArray(l1);
+        ListNode head2 = ListNode.fromArray(l2);
+        ListNode sum = solution.addTwoNumbers3(head1, head2);
         System.out.println(sum);
     }
 
     public static void main(String[] args) {
-        // create the tesing data
+        // create the testing data
         AddTwoNumbers solution = new AddTwoNumbers();
         int[] list1 = {6,1,3};
         int[] list2 = {2,9,7};
         int[] list3 = {2};
         int[] list4 = {9,9,9};
+
         // test
         test(solution, list1, list2);
         test(solution, list1, list3);

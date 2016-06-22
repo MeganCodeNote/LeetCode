@@ -66,7 +66,7 @@ public class ReverseNodesInKGroup {
 
     ///////////////////// TEST ///////////////////////
     private static void test(ReverseNodesInKGroup solution, int[] x, int k) {
-        ListNode list = new ListNode(x);
+        ListNode list = ListNode.fromArray(x);
         ListNode res = solution.reverseKGroup2(list, k);
         System.out.println(res);
     }

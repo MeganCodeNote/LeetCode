@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class SortList {
     //--------------- Solution 1 ----------------//
@@ -60,7 +63,7 @@ public class SortList {
         tail1.next = null;
 
         // step 2: divdie and conquer
-        head1 = sortList(head);   // recursive call
+        ListNode head1 = sortList(head);   // recursive call
         head2 = sortList(head2);  // recursive call
 
         // step 3: merge two lists
@@ -122,7 +125,7 @@ public class SortList {
 
     //////////////////  TEST  ///////////////////
     public static void test(SortList solution, int[] x) {
-        ListNode l = new ListNode(x);
+        ListNode l = ListNode.fromArray(x);
         System.out.println(solution.sortList(l));
     }
 

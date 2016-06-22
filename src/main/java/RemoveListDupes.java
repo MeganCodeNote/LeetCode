@@ -33,7 +33,8 @@ public class RemoveListDupes {
 
 
     ///////////////////////  TEST  //////////////////////
-    private static void test(RemoveListDupes solution, ListNode head) {
+    private static void test(RemoveListDupes solution, int[] list) {
+        ListNode head = ListNode.fromArray(list);
         ListNode l = solution.deleteDuplicates(head);
         System.out.println(l);
     }
@@ -41,12 +42,12 @@ public class RemoveListDupes {
         RemoveListDupes solution = new RemoveListDupes();
 
         int[] x1 = {1,1,2,3,3};
-        test(solution, new ListNode(x1));
+        test(solution, x1);
 
         int[] x2 = {1,1,1,1,1};
-        test(solution, new ListNode(x2));
+        test(solution, x2);
 
         int[] x3 = {1,1,1,2,3,3,3,3,4,4,5};
-        test(solution, new ListNode(x3));
+        test(solution, x3);
     }
 }
