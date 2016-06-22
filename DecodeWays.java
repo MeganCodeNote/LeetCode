@@ -10,8 +10,8 @@ public class DecodeWays {
 
         int N = s.length();
         int[] counts = new int[N + 1];  // index indicates len
-        counts[0] = 1;  // prefix with len 0
-        counts[1] = 1;  // prefix with len 1
+        counts[0] = 1;  // num of decodes s.substring(0,1) <- first 0 char(s) of s
+        counts[1] = 1;  // num of decodes s.substring(0,2) <- first 1 char(s) of s
         for (int i = 1; i < N; i++) {
             // case 1. use a single digit to decode
             if (s.charAt(i) != '0') {
@@ -45,7 +45,7 @@ public class DecodeWays {
             }
             // case 2. use two digits to decode
             int val = Integer.valueOf(s.substring(i - 1, i + 1));
-            if (10 <= val && val <= 26) {  // or char[i-1]=='1' || (char[i-1]=='2' && char[i]<='6')
+            if (10 <= val && val <= 26) {
                 num3 += num1;
             }
             // update

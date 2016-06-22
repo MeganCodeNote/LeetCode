@@ -15,20 +15,20 @@ public class UniquePath2 {
 
         // m > 0 && n >0
         int m = obstacleGrid.length, n = obstacleGrid[0].length;
-        return helper(obstacleGrid, m - 1, n - 1);
+        return helper(obstacleGrid, m, n);
     }
 
-    private int helper(int[][] grid, int row, int col) {
-        // base case
-        if ((row < 0 || col < 0) || grid[row][col] == 1) {  // minus index || obstacle order is important!!!
+    private int helper(int[][] grid, int m, int n) {
+        if (grid[m - 1][n - 1] == 1) {  // obstacle
             return 0;
+        } else {
+            // base case
+            if (row == 0 || col == 0) { // non-obstacle
+                return 1;
+            }
+            // genearl case
+            return helper(grid, row - 1, col) + helper(grid, row, col - 1);
         }
-        if (row == 0 && col == 0) {  // non-obstacle and start point
-            return 1;
-        }
-
-        // general cases
-        return helper(grid, row - 1, col) + helper(grid, row, col - 1);
     }
 
 
@@ -45,13 +45,10 @@ public class UniquePath2 {
         // m > 0 && n >0
         int m = obstacleGrid.length, n = obstacleGrid[0].length;
         int[][] cache = new int[m][n];
-        for (int[] row : cache) {
-            Arrays.fill(row, -1);
-        }
-        return numOfpaths(obstacleGrid, m - 1, n - 1, cache);
+        return numOfpaths(obstacleGrid, m, n, cache);
     }
 
-    private int numOfpaths(int[][] grid, int row, int col, int[][] cache) {
+    private int numOfpaths(int[][] grid, int m, int n, int[][] cache) {
         // base case
         if ((row < 0 || col < 0) || grid[row][col] == 1) {  // minus index || obstacle order is important!!!
             return 0;

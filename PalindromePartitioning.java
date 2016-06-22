@@ -36,7 +36,7 @@ public class PalindromePartitioning {
         boolean[][] cache = new boolean[s.length()][s.length()];
         for (int i = 0; i < s.length(); i++) {
             for (int j = 0; j <= i; j++) {
-                if (s.charAt(i) == s.charAt(j) && (i - j <= 2 || cache[j + 1][i - 1])) {
+                if (s.charAt(i) == s.charAt(j) && (i - j <= 1 || cache[j + 1][i - 1])) {
                     cache[j][i] = true;
                 }
             }

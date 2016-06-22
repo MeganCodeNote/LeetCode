@@ -26,38 +26,48 @@ public class ClimbStairs {
             return 0;
         }
 
+        // create a cache and initialize it
         int[] cache = new int[n + 1];
         Arrays.fill(cache, -1);
+
+        // call recusive function
         return helper(n, cache);
     }
 
     private int helper(int n, int[] cache) {
+        // base: n == 0 || n == 1, return 1
         if (n <= 1) {
             return 1;
         }
 
+        // miss: update cache
         if (cache[n] == -1) {
             cache[n] = helper(n - 1, cache) + helper(n - 2, cache);
         }
+
+        // hit: return cache
         return cache[n];
     }
 
     //----------------  Solution 3 --------------------//
     // DP - O(n) space
     public int climbStairs3(int n) {
-        // negative steps
+        // invalid input n
         if (n < 0) {
             return 0;
         }
         
-        // n == 0 || n == 1
+        // Init: n == 0 || n == 1
         int[] numSteps = new int[n + 1];
         numSteps[0] = 1;
         numSteps[1] = 1;
-        // otherwise
+
+        // Funct: dp[i] = dp[i - 1] + dp[i - 2]
         for (int i = 2; i <= n; i++) {
             numSteps[i] = numSteps[i - 1] + numSteps[i - 2];
         }
+
+        // Answer
         return numSteps[n];
     }
 
@@ -112,5 +122,3 @@ public class ClimbStairs {
         System.out.println(cs.climbStairs3(44));
     }
 }
-
-// NOTE: to prevent low-level ERROR, better to manually test your code

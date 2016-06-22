@@ -8,7 +8,6 @@ public class PalindromeNumber {
         if (x < 0) {
             return false;
         }
-        // use long type to prevent reversed overflow
         StringBuilder sb = new StringBuilder().append(x);
         return sb.toString().equals(sb.reverse().toString());
     }
@@ -33,7 +32,7 @@ public class PalindromeNumber {
 
     //------------- Solution 3 ---------------//
     // from two sides to middle
-	public boolean isPalindrome3(int x) {
+	  public boolean isPalindrome3(int x) {
         // pay attention to negative numbers
         if (x < 0) {
             return false;

@@ -1,5 +1,5 @@
 
-public class UniqueBinarySearchTree {
+public class UniqueBST {
     //-------------- Solution 1 --------------------//
     // pure recursion
     public int numTrees(int n) {
@@ -12,9 +12,10 @@ public class UniqueBinarySearchTree {
         if (n <= 1) {
             return 1;
         }
+
         // general case
         int res = 0;
-        for (int i = 0; i <= n - 1; i++) {
+        for (int i = 0; i < n; i++) {
             res += numTrees(i) * numTrees(n - 1 - i);
         }
         return res;
@@ -43,8 +44,7 @@ public class UniqueBinarySearchTree {
 
     //-------------- Solution 3 --------------------//
     // Math: use Catalan num definition to calculate directly
-    // c(2n, n)/(n+1) = c(2n, n) - c(2n, n+1) 
-    // CTL(n) = CTL(n-1) * 2(2n - 1) /(n + 1)
+    // C(n) = C(n-1) * 2(2n - 1) / (n + 1)
     // TIME: O(n); Space: O(1)
     public int numTrees3(int n) {
         // input checking
@@ -66,9 +66,9 @@ public class UniqueBinarySearchTree {
     }
 
 
-
+    //////////////////////   TEST   ////////////////////////
     public static void main(String[] args) {
-        UniqueBinarySearchTree solution = new UniqueBinarySearchTree();
+        UniqueBST solution = new UniqueBST();
         for (int i = 0; i < 5; i++)
             System.out.println(solution.numTrees3(i));
     }

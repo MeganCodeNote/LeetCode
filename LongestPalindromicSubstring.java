@@ -67,22 +67,23 @@ public class LongestPalindromicSubstring {
     //  Dynamic Time/Space: O(n^2)
     public String longestPalindrome3(String s) {
         // Define:   dp[i][j] = whether substring(i, j + 1) is a palindrome
-        // Function: dp[i][j] == (char-i == char-j) &&
-        //            (j - i == [0,1,2] || dp[i+1][j-1] == true)
+        // Function: dp[i][j] == (char.i == char.j) &&
+        //            (j - i == [0,1] || dp[i+1][j-1] == true)
         // Initial:  dp[0][0] = true;
-        // Return: global best
+        // Return:   global best
 
         // input validation
         if (s == null || s.length() == 0) {
             return s;
         }
         boolean[][] dp = new boolean[s.length()][s.length()];
-        int bestStart = 0, bestEnd = 0;
+        int bestStart = 0, bestEnd = 0; // inclusive
         for (int end = 0; end < s.length(); end++) {
             for (int start = 0; start <= end; start++) {
                 // the most clever statement in the solution:
-                if (s.charAt(start) == s.charAt(end) && (end - start <= 2 || dp[start + 1][end - 1])) {
+                if (s.charAt(start) == s.charAt(end) && (end - start <= 1 || dp[start + 1][end - 1])) {
                     dp[start][end] = true;
+                    // update global best
                     if (end - start > bestEnd - bestStart) {
                         bestStart = start;
                         bestEnd = end;

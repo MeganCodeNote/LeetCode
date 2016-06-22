@@ -5,21 +5,15 @@ public class JumpGame2 {
     // Similar to Graph BFS
     public int jump(int[] A) {
         // input validation
-        if (A == null) {
-            return -1;
-        }
-        if (A.length <= 1) {
+        if (A == null || A.length <= 1) {
             return 0;
         }
 
         // level by level
         int steps = 0;
         int start = 0, end = 0, nextEnd = end;
-        while (start <= end) {      // if start > end: last node is not reachable
-            for (int i = start; i <= end; i++) {
-                if (A[i] == 0) {
-                    continue;
-                }
+        while (start <= end) {  // level travesing
+            for (int i = start; i <= end; i++) { // within each level, find max end for next level
                 nextEnd = Math.max(nextEnd, i + A[i]);
                 if (nextEnd >= A.length - 1) {
                     return steps + 1;
@@ -29,7 +23,7 @@ public class JumpGame2 {
             end = nextEnd;
             steps++;
         }
-        return -1;
+        return 0;
     }
 
 
@@ -37,10 +31,7 @@ public class JumpGame2 {
     // dp, O(N^2), not good for this problem
     public int jump2(int[] A) {
         // input validation
-        if (A == null) {
-            return -1;
-        }
-        if (A.length <= 1) {
+        if (A == null || A.length <= 1) {
             return 0;
         }
 

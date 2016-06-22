@@ -5,10 +5,12 @@ public class UniquePath {
     //------------ Solution 1: Pure Recursion ---------------//
     // Pure Recursion (exceed time limit)
     public int uniquePaths(int m, int n) {
-        // base cases
+        // input checking
         if (m <= 0 || n <= 0) {
             return 0;
         }
+
+        // base cases
         if (m == 1 || n == 1) {
             return 1;
         }
@@ -20,28 +22,29 @@ public class UniquePath {
     //--------- Solution 2: Top-down Recursion Cache ----------//
     // Recursion with cache
     public int uniquePaths2(int m, int n) {
+        // input checking
+        if (m <= 0 || n <= 0) {
+            return 0;
+        }
+
         // create a table for cache repeated used value
         int[][] cache = new int[m + 1][n + 1];
-        for (int[] arr : cache) {
-            Arrays.fill(arr, -1);   // -1 means unlabeled
-        }
         return helper(m, n, cache);
      }
     
     public int helper(int m, int n, int[][] table) {
-        // base cases
-        if (m <= 0 || n <= 0) {
-            return 0;
-        }
+        // step 1: update cache
+        // -- base cases
         if (m == 1 || n == 1) {
-            return 1;
+            table[m][n] = 1;
         }
         
-        // general cases
-        if (table[m][n] == -1){
+        // -- general cases
+        if (table[m][n] == 0){
             table[m][n] = helper(m - 1, n, table) + helper(m, n - 1, table);
         }
 
+        // step 2: return cached value
         return table[m][n];
     }
     
@@ -55,17 +58,17 @@ public class UniquePath {
         }
 
         // create a table for storing intermediate results
-        int[][] dp = new int[m][n];
-        for (int i = 0; i < m; i++){
-            for (int j = 0; j < n; j++) {
-                if (i == 0 || j == 0) {
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 1; i <= m; i++){
+            for (int j = 1; j <= n; j++) {
+                if (i == 1 || j == 1) {
                     dp[i][j] = 1;
                 } else {
                     dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
                 }
             }
         }
-        return dp[m - 1][n - 1];
+        return dp[m][n];
     }
     
     
@@ -78,15 +81,16 @@ public class UniquePath {
         }
 
         // initial row
-        int[] dp = new int[m];
+        int[] dp = new int[m + 1];
         Arrays.fill(dp, 1);
-        for (int i = 1; i < n; i++) {
-            for (int j = 1; j < m; j++) {
+        for (int i = 2; i <= n; i++) {
+            for (int j = 2; j <= m; j++) {
                 dp[j] += dp[j - 1];
             }
         }
-        return dp[m - 1];
+        return dp[m];
     }
+
     
     //------------ Solution 5: Combination Formula -----------------//
     public int uniquePaths5(int m, int n) {
@@ -94,6 +98,8 @@ public class UniquePath {
         if (m <= 0 || n <= 0) {
             return 0;
         }
+
+        // base case
         if (m == 1 || n == 1) {
             return 1;
         }
@@ -101,8 +107,8 @@ public class UniquePath {
         // calculate C(m+n-2, n-1)
         int denominator = 1, numerator = 1;
         for (int i = n - 1; i >= 1; i--) {
-            numerator *= (m - 1) + i;
-            denominator *= i;
+            numerator *= (m - 1) + i;   // starting from (m - 1) + (n - 1)   -->   (m - 1) + 1
+            denominator *= i;           // starting form           (n - 1)   -->             1
             int factor = gcd(numerator, denominator);
             denominator /= factor;
             numerator /= factor;
@@ -120,13 +126,20 @@ public class UniquePath {
     }
     
     
-    /////////////// TEST /////////////////////////
+    /////////////////////////////     TEST     //////////////////////////////////
+    private static void test(UniquePath solution, int m, int n, int expected) {
+        int actual = solution.uniquePaths(m, n);
+        System.out.println(String.format("%-6d %-6d %-10d %-10d", m, n, expected, actual));
+        System.out.println(actual == expected ? "PASS\n" : "ERROR!!\n");
+    }
     public static void main(String[] args) {
-        UniquePath up = new UniquePath();
-        System.out.println(up.gcd(0, 0));
-        System.out.println(up.gcd(1, 0));
-        System.out.println(up.gcd(12, 8));
-        System.out.println((new UniquePath()).uniquePaths4(23, 12));
+        System.out.println(String.format("%-6s %-6s %-10s %-10s", "m", "n", "expected", "actual"));
+        System.out.println("--------------------------------------");
+        UniquePath solution = new UniquePath();
+        test(solution, 0, 0, 0);
+        test(solution, 1, 0, 0);
+        test(solution, 12, 8, 31824);
+        test(solution, 23, 12, 193536720);
     }
 }
 
