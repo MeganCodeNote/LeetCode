@@ -10,13 +10,11 @@ public class UniquePath {
             return 0;
         }
 
-        // base cases
-        if (m == 1 || n == 1) {
+        if (m == 1 || n == 1) { // base cases
             return 1;
+        } else {                // general cases
+            return uniquePaths(m - 1, n) + uniquePaths(m, n - 1);
         }
-        
-        // general cases
-        return uniquePaths(m - 1, n) + uniquePaths(m, n - 1);
     }
 
     //--------- Solution 2: Top-down Recursion Cache ----------//
@@ -28,24 +26,22 @@ public class UniquePath {
         }
 
         // create a table for cache repeated used value
-        int[][] cache = new int[m + 1][n + 1];
+        int[][] cache = new int[m + 1][n + 1]; // cell's default value is 0
         return helper(m, n, cache);
      }
     
-    public int helper(int m, int n, int[][] table) {
+    public int helper(int m, int n, int[][] cache) {
         // step 1: update cache
-        // -- base cases
-        if (m == 1 || n == 1) {
-            table[m][n] = 1;
-        }
-        
-        // -- general cases
-        if (table[m][n] == 0){
-            table[m][n] = helper(m - 1, n, table) + helper(m, n - 1, table);
+        if (cache[m][n] == 0) {
+            if (m == 1 || n == 1) { // -- base cases
+                cache[m][n] = 1;
+            } else {                // -- general cases
+                cache[m][n] = helper(m - 1, n, cache) + helper(m, n - 1, cache);
+            }
         }
 
         // step 2: return cached value
-        return table[m][n];
+        return cache[m][n];
     }
     
 
@@ -57,13 +53,14 @@ public class UniquePath {
             return 0;
         }
 
-        // create a table for storing intermediate results
+        // create a 2D table for storing intermediate results
         int[][] dp = new int[m + 1][n + 1];
+
         for (int i = 1; i <= m; i++){
             for (int j = 1; j <= n; j++) {
-                if (i == 1 || j == 1) {
+                if (i == 1 || j == 1) { // -- base cases
                     dp[i][j] = 1;
-                } else {
+                } else {                // -- general cases
                     dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
                 }
             }
