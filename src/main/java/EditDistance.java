@@ -7,7 +7,7 @@ public class EditDistance {
         }
 
         // initialization
-        int M = word1.length(), N = word2.length();
+        int M = word1.length(), N = word2.length(); // it's better to use capitalized M/N
         int[][] dp = new int[M + 1][N + 1];
         for (int i = 0; i <= M; i++) {
             dp[i][0] = i;
@@ -27,5 +27,18 @@ public class EditDistance {
             }
         }
         return dp[M][N];
+    }
+
+    ///////////////////  TEST //////////////////////
+    private static void test(EditDistance solution, String word1, String word2) {
+        System.out.println(word1);
+        System.out.println(word2);
+        System.out.println(solution.minDistance(word1, word2));
+    }
+
+    public static void main(String[] args) {
+        EditDistance solution = new EditDistance();
+
+        test(solution, "hello", "shallow");
     }
 }
