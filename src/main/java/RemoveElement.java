@@ -1,9 +1,25 @@
 
 public class RemoveElement {
-    //---------------- Solution 1 -----------------//
-    // non-stable (allowing changing the order)
-    // like partition in quick sort
+
+    //---------------- Solution 1 --------------------//
     public int removeElement(int[] A, int elem) {
+        if (A == null) {
+            return 0;
+        }
+
+        int len = 0;        // len of the valid pre-subarray
+        for (int i = 0; i < A.length; i++) { // move one step a time, check char-by-char
+            if (A[i] != elem) {
+                A[len++] = A[i];
+            }
+        }
+        return len;
+    }
+
+    //---------------- Solution 2 -----------------//
+    // non-stable (allowing changing the order)
+    // sparse delete, move all bad items to the end of array
+    public int removeElement2(int[] A, int elem) {
         if (A == null || A.length == 0) {
             return 0;
         }
@@ -14,47 +30,9 @@ public class RemoveElement {
             } else {
                 // swap(A, i, j--);  // no need to swap!, discard target
                 A[i] = A[j];
-                j--;
+                j--;                 // reduce array size by one
             }
         }
         return i;
-    }
-
-    //---------------- Solution 2 -----------------//
-    // stable (same order with previous)
-    public int removeElement2(int[] A, int elem) {
-        if (A == null || A.length == 0) {
-            return 0;
-        }
-
-        int len = A.length;
-        for (int i = 0; i < len; ) {
-            if (A[i] == elem) {
-                for (int j = i + 1; j < len; j++) {
-                    A[j - 1] = A[j];
-                }
-                len--;
-            } else {
-                i++;
-            }
-        }
-        return len;
-    }
-
-    //---------------- Solution 3 --------------------//
-    public int removeElement3(int[] A, int elem) {
-        if (A == null) {
-            return 0;
-        }
-
-        // len is the len of the valid pre-subarray
-        // i will move one step a time, check char-by-char
-        int len = 0;
-        for (int i = 0; i < A.length; i++) {
-            if (A[i] != elem) {
-                A[len++] = A[i];
-            }
-        }
-        return len;
     }
 }

@@ -44,8 +44,3 @@ public class PalindromePartitioning {
         return cache;
     }
 }
-
-// Error:
-//  don't add partition reference, add a new collection!!
-//      res.add(partition);
-//      res.add(new ArrayList<String>(partition));

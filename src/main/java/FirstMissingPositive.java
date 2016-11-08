@@ -8,10 +8,11 @@ public class FirstMissingPositive {
 
         // put i at index i - 1
         for (int i = 0; i < A.length; ) {
-            if (A[i] <= 0 || A[i] > A.length || A[i] == i + 1 || A[i] == A[A[i] - 1]) {
+            int targetIndex = A[i] - 1;
+            if (A[i] <= 0 || A[i] > A.length || i == targetIndex || A[i] == A[targetIndex]) {
                 i++;
             } else {
-                swap(A, i, A[i] - 1);
+                swap(A, i, targetIndex);
             }
         }
 

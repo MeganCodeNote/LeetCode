@@ -1,64 +1,90 @@
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Arrays;
 
 
 public class TwoSum {
-
     //-------------- Solution 1  ------------------//
+    // 2 pointers
+    public int[] twoSum(int[] nums, int target) {
+        if (nums == null || nums.length < 2) {
+            return null;    // invalid input
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    int[] res = {i, j};
+                    return res;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    //-------------- Solution 2  ------------------//
     // HashMap
-    public int[] twoSum(int[] numbers, int target) {
-        // input validation
-        if (numbers == null || numbers.length < 2) {
-            return null;
+    public int[] twoSum2(int[] nums, int target) {
+        if (nums == null || nums.length < 2) {
+            return null;    // invalid input
         }
 
         int[] res = new int[2];
         Map<Integer, Integer> table = new HashMap<Integer, Integer>();
-        for (int i = 0; i < numbers.length; i++) {
-            int num = numbers[i];
-            if (table.containsKey(target - num)) {
-                res[0] = table.get(target - num) + 1;
-                res[1] = i + 1;
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i], peerNum = target - num;
+            if (table.containsKey(peerNum)) {
+                res[0] = table.get(peerNum);
+                res[1] = i;
                 return res; // found an answer
+            } else {
+                table.put(num, i);
             }
-            table.put(num, i);
         }
-        return null; // no valid answer
+
+        return null;        // no valid answer
     }
 
-    //-------------- Solution 1  ------------------//
+    //-------------- Solution 3  ------------------//
     // Sort and solve:
     // T=O(nlgn) Space: decided on the sorting algorithm
     // NOTE:
     // here we return the actual number instead of the index
     // Could define an data structure {num, index} if we want to
     // return the index using this method
-    public int[] twoSum2(int[] numbers, int target) {
+    public int[] twoSum3(int[] nums, int target) {
         // input validation
-        if (numbers == null || numbers.length < 2) {
+        if (nums == null || nums.length < 2) {
             return null;
         }
 
+        // user a HashMap to keep the original index before sorting
+        Map<Integer, Integer> table = new HashMap<Integer, Integer>();
+        for (int i = 0; i < nums.length; i++) {
+            table.put(nums[i], i);
+        }
+
         // use two pointers to find the right solution
-        int left = 0, right = numbers.length - 1;
         int[] res = new int[2];
-        Arrays.sort(numbers);
-        while (left < right) {
-            int pairSum = numbers[left] + numbers[right];
-            if (pairSum == target) {
-                res[0] = numbers[left];
-                res[1] = numbers[right];
+        Arrays.sort(nums);
+        for(int l = 0, r = nums.length - 1; l < r; ) {
+            int sum = nums[l] + nums[r];
+            if (sum == target) {
+                res[0] = table.get(nums[l]);
+                res[1] = table.get(nums[r]);
                 return res;
-            } else if (pairSum < target) {
-                left++;
-            } else { // pairSum > target
-                right--;
+            } else if (sum < target) {
+                l++;
+            } else { // sum > target
+                r--;
             }
         }
+
+        // no solution found, return null;
         return null;
     }
-
 
 
     ////////////////  TEST  ///////////////////////
@@ -72,26 +98,3 @@ public class TwoSum {
         }
     }
 }
-
-
-
-//=========  TAG: ==========//
-// Array / Sort / Search
-//
-//
-//=========  Design: =========//
-// a.--- Brute-force, two pointers
-//
-// b.--- HashTable ==> make sure do not use one element multiple times
-//          Input:  {3, 4, 2}, target 6
-//          Error:  [1, 1] <-- return one element twice!
-//          Output: [2, 3]
-//
-// c.--- Sort and Solve
-//         Link: CTCI-P450-17.12
-//
-//=========  Error/Note: =========//
-//      1) don't return one element twice!
-//      2) index is 1-based and should be sorted
-//      3) for solution 2: don't forget to sort!!!
-

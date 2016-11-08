@@ -2,11 +2,11 @@ import java.util.Stack;
 
 public class PathSum {
     //------------------- Solution 1 --------------------//
-    // recursion: (preorder)
+    // Back-tracking
     public boolean hasPathSum(TreeNode root, int sum) {
         // base case
         if (root == null) {
-            return false; // if root is null, it's sibling must be non null
+            return false;
         }
         // leaf!
         if (root.left == null && root.right == null) {
@@ -54,10 +54,3 @@ public class PathSum {
         return false;
     }
 }
-
-// NOTE 1: test cases
-// {}, 0 --> false
-// {1,2}, 1 --> false
-//
-// NOTE 2: pay attention of the definition of PATH
-// has to end with a LEAF!!!

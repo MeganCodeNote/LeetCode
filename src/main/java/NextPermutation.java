@@ -1,56 +1,36 @@
-import java.util.Arrays;
-
 public class NextPermutation {
-    public static void nextPermutation(int[] num) {
-        // input check and base case
-        if (num == null) return;
-        
-        boolean done = helper(num, 0);
-        if (!done)
-            Arrays.sort(num);
+    public void nextPermutation(int[] nums) {
+        // input checking
+        if (nums == null) return;
+
+        // start form the 2nd to last item, going backwords, find the first descreasing item
+        int i = nums.length - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1]) { // use while instead of for loop, need to refer to i later
+            i--;
+        }
+
+        // if i is not -1, we need to find the the one to be swapped
+        if (i != -1) {
+            int j = nums.length - 1;
+            while (j >= 0 && nums[j] <= nums[i]) { // use while instead of for loop, need to refer to j later
+                j--;
+            }
+            swap(nums, i, j);
+        }
+
+        // then reverse everything between i until the end
+        reverse(nums, i + 1);
     }
-    
-    public static boolean helper(int[] num, int index) {
-        // base case
-        int N = num.length;
-        if (index >= N - 1) return false;
-        
-        // general case
-        boolean done = helper(num, index + 1);
-        if (done) {
-            return true;
-        } else {
-            // find the next greater element in the range (index, N)
-            int min_greater_value = Integer.MAX_VALUE;
-            int min_greater_index = N;
-            for (int i = index + 1; i < N; i++) {
-                if (num[i] > num[index] && num[i] < min_greater_value) {
-                    min_greater_value = num[i];
-                    min_greater_index = i;
-                }
-            }
-            
-            if (min_greater_index != N) {
-                int temp = num[min_greater_index];
-                num[min_greater_index] = num[index];
-                num[index] = temp;
-                Arrays.sort(num, index + 1, N);
-                return true;
-            } else {
-                return false;
-            }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    private void reverse(int[] nums, int start) {
+        for (int i = start, j = nums.length - 1; i < j; i++, j--) {
+            swap(nums, i, j);
         }
     }
-    
-    public static void main(String[] args) {
-    		int[] nums = {3,2,1};
-    		nextPermutation(nums);
-    		for(int i: nums) {
-    			System.out.print(i);
-    			System.out.print(' ');
-    		}
-	}
 }
-
-// NOTE 1: There might be duplicates among all numbers
-// NOTE 2: How to get all permutations for a list of elements (with duplicates)

@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class ScrambleString {
     //----------------   Solution 1  ----------------------//
-    // Recursion
+    // Recursion (TIMEOUT)
     public boolean isScramble(String s1, String s2) {
         // input checking
         if (s1 == null || s2 == null || s1.length() != s2.length() || isInvalid(s1, s2)) {

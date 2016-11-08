@@ -37,7 +37,7 @@ public class PathSum2 {
     }
 
     //-------------------- Solution 2 --------------------//
-    // use classic postorder stack traversal
+    // stack - postorder traversal
     public List<List<Integer>> pathSum2(TreeNode root, int sum) {
         // input checking
         List<List<Integer>> res = new ArrayList<List<Integer>>();

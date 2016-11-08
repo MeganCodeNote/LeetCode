@@ -9,8 +9,7 @@ public class ThreeSumClosest {
         Arrays.sort(num);
         int closest = num[0] + num[1] + num[2];    // do NOT use Integer.MAX_VALUE might have overflow (closet-target)
         for (int i = 0; i < num.length - 1; i++) {
-            int start = i + 1, end = num.length - 1;
-            while (start < end) {
+            for(int start = i + 1, end = num.length - 1; start < end; ) {
                 // adjust pointers
                 int sum = num[i] + num[start] + num[end];
                 if (sum == target) {
@@ -30,11 +29,3 @@ public class ThreeSumClosest {
         return closest;
     }
 }
-
-//=========  TAG: ==========//
-// two pointers / kSum
-//
-//========= NOTE/ERROR: =========//
-// 1) Don't forget to sort
-// 2) could be optimized by skipping duplicates
-

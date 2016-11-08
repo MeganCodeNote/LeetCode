@@ -13,9 +13,9 @@ public class AddTwoNumbers {
         }
 
         // general case
-        int sum = carry;
-        sum += (l1 == null) ? 0 : l1.val;
-        sum += (l2 == null) ? 0 : l2.val;
+        int digitA = (l1 == null) ? 0 : l1.val;
+        int digitB = (l2 == null) ? 0 : l2.val;
+        int sum = digitA + digitB + carry;
         ListNode res = new ListNode(sum % 10);
 
         l1 = (l1 == null) ? null : l1.next;
@@ -27,52 +27,53 @@ public class AddTwoNumbers {
     //--------------- Solution 2  ----------------//
     // iterative 1
     public ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
-        ListNode sumHead = new ListNode(0); // result
-        int carry = 0;                      // carry
-        ListNode p1 = l1, p2 = l2, pSum = sumHead;
+        int carry = 0;                                  // carry
+        ListNode dummyHead = new ListNode(0);           // result
+        ListNode p1 = l1, p2 = l2, pSum = dummyHead;    // 3 pointers
         while((p1 != null) || (p2 != null) || (carry != 0)) {
             // compute current digit
-            int sum = carry;
-            sum += (p1 == null) ? 0 : p1.val;
-            sum += (p2 == null) ? 0 : p2.val;
-            pSum.next = new ListNode(sum % 10);
+            int digitA = (l1 == null) ? 0 : l1.val;
+            int digitB = (l2 == null) ? 0 : l2.val;
+            int sum = digitA + digitB + carry;
             carry = sum / 10;
+            pSum.next = new ListNode(sum % 10);
 
             // update states for next iteration
             p1 = (p1 == null) ? null : p1.next;
             p2 = (p2 == null) ? null : p2.next;
             pSum = pSum.next;
         }
-        return sumHead.next;
+        return dummyHead.next;
     }
 
     //--------------- Solution 3  ----------------//
     // iterative 2
     public ListNode addTwoNumbers3(ListNode l1, ListNode l2) {
-        ListNode dummyHead = new ListNode(0);
-        ListNode tail = dummyHead;
-        int carry = 0;
+        int carry = 0;                                  // carry
+        ListNode dummyHead = new ListNode(0);           // result
+        ListNode p1 = l1, p2 = l2, pSum = dummyHead;    // 3 pointers
+
         // sum 2 digits
-        while (l1 != null && l2 != null) {
-            int sum = l1.val + l2.val + carry;
-            tail.next = new ListNode(sum % 10);
+        while (p1 != null && p2 != null) {
+            int sum = p1.val + p2.val + carry;
             carry = sum / 10;
-            tail = tail.next;
-            l1 = l1.next;
-            l2 = l2.next;
+            pSum.next = new ListNode(sum % 10);
+            pSum = pSum.next;
+            p1 = p1.next;
+            p2 = p2.next;
         }
         // remainder of the longer number
-        ListNode leftover = (l1 == null) ? l2 : l1;
-        while (leftover != null) {
-            int sum = leftover.val + carry;
-            tail.next = new ListNode(sum % 10);
+        ListNode pLeftover = (p1 == null) ? p2 : p1;
+        while (pLeftover != null) {
+            int sum = pLeftover.val + carry;
             carry = sum / 10;
-            tail = tail.next;
-            leftover = leftover.next;
+            pSum.next = new ListNode(sum % 10);
+            pSum = pSum.next;
+            pLeftover = pLeftover.next;
         }
         // the final carry
-        if (carry > 0) {
-            tail.next = new ListNode(carry);
+        if (carry == 1) {
+            pSum.next = new ListNode(carry);
         }
         return dummyHead.next;
     }

@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class FourSum {
+    //---------------------  Solution 1 ---------------------
     public List<List<Integer>> fourSum(int[] num, int target) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         if (num == null || num.length < 4) {
@@ -18,8 +19,7 @@ public class FourSum {
                 if (j != i + 1 && num[j] == num[j - 1]) {
                     continue;
                 }
-                int start = j + 1, end = num.length - 1;
-                while (start < end) {
+                for(int start = i + 1, end = num.length - 1; start < end; ) {
                     int sum = num[i] + num[j] + num[start] + num[end];
                     if (sum == target) {
                         List<Integer> quad = Arrays.asList(num[i], num[j], num[start], num[end]);
@@ -42,8 +42,10 @@ public class FourSum {
         }
         return res;
     }
+
+    //---------------------  Solution 2 ---------------------
+    // Competition Tree
+//    public List<List<Integer>> fourSum2(int[] num, int target) {
+//    }
 }
 
-// same with 3 sum
-// two pointer meeting each other
-// O(n^3)

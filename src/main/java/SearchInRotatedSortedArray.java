@@ -1,45 +1,9 @@
 
 public class SearchInRotatedSortedArray {
-    //------------------- Solution 1 ----------------------//
-    // a little bit complicated, modification of classic binary search
-    public int search(int[] A, int target) {
-        // assume there are no duplicates in the array
-        if (A == null || A.length == 0) {
-            return -1;
-        }
-        int lo = 0, hi = A.length - 1;
-        while (lo <= hi) {
-            int mid = lo + (hi - lo) / 2;
-            if (target == A[mid]) {
-                return mid;
-            } else if (target < A[mid]){
-                if (A[lo] > A[mid]) {
-                    hi = mid - 1;
-                } else {
-                    if (A[lo] > target) {
-                        lo = mid + 1;
-                    } else {
-                        hi = mid - 1;
-                    }
-                }
-            } else {
-                if (A[lo] > A[mid]) {
-                    if (A[hi] < target) {
-                        hi = mid - 1;
-                    } else {
-                        lo = mid + 1;
-                    }
-                } else {
-                    lo = mid + 1;
-                }
-            }
-        }
-        return -1;
-    }
 
-    //------------------- Solution 2 ----------------------//
+    //------------------- Solution ----------------------//
     // a more concise way of developing the algorithm
-    public int search2(int[] A, int target) {
+    public int search(int[] A, int target) {
         // input checking
         if (A == null || A.length == 0) {
             return -1;

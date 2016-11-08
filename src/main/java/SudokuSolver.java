@@ -8,22 +8,21 @@ public class SudokuSolver {
     private boolean helper(char[][] board, int n) {
         // base case, 0 <= n <= 80
         if (n == 81) {
-            return true;    // use a boolean to stop calculating early
+            return true;    // use a boolean to stop calculating when we've found the right answer
         }
 
         // general case
-        int row = n / 9;
-        int col = n % 9;
+        int row = n / 9, col = n % 9;
         if (board[row][col] != '.') {
             return helper(board, n + 1);
-        } else {
-            for (int i = 1; i <= 9; i++) {
-                board[row][col] = (char)(i + '0');
-                if (valid(board, row, col) && helper(board, n + 1)) {
-                    return true;
-                }
-                board[row][col] = '.';
+        }
+
+        for (int i = 1; i <= 9; i++) {
+            board[row][col] = (char)(i + '0');
+            if (valid(board, row, col) && helper(board, n + 1)) {
+                return true;
             }
+            board[row][col] = '.';
         }
         return false;
     }
@@ -42,26 +41,29 @@ public class SudokuSolver {
             }
         }
         // check square
+        int r0 = (row / 3) * 3;   // the current square:  most left-right corner row number
+        int c0 = (col / 3) * 3;   // the current square:  most left-right corner col number
         for (int i = 0; i < 9; i++) {
-            int curRow = (row / 3) * 3 + (i / 3);
-            int curCol = (col / 3) * 3 + (i % 3);
-            if ((curRow != row || curCol != col) && board[row][col] == board[curRow][curCol]) {
+            int curRow = r0 + (i / 3);
+            int curCol = c0 + (i % 3);
+            if (!(curRow == row && curCol == col) && board[row][col] == board[curRow][curCol]) {
                 return false;
             }
         }
         return true;
 
         // the above three for loop could be written in on loop body
-        /*
-        for (int i = 0; i < 9; i++) {
-            int r = (row / 3) * 3 + (i / 3);
-            int c = (col / 3) * 3 + (i % 3);
+        /**
+         int r = (row / 3) * 3 + (i / 3);
+         int c = (col / 3) * 3 + (i % 3);
+         for (int i = 0; i < 9; i++) {
+
             if ((i != row && board[row][col] == board[i][col]) ||        // row
                 (i != col && board[row][col] == board[row][i]) ||        // col
                 ((r != row || c != col) && board[row][col] == board[r][c])) {  // square
                 return false;
             }
-        }
+         }
         */
     }
 

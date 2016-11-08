@@ -31,7 +31,7 @@ public class TrappingRainWater {
         return sum;
     }
 
-    //----------------- Solution 1 ------------------//
+    //----------------- Solution 2 ------------------//
     // current is the shortest-> center to two sides
     public int trap2(int[] A) {
         // input checking
@@ -59,12 +59,43 @@ public class TrappingRainWater {
         return sum;
     }
 
-    //---------------------  Test    -------------------------//
+
+    //----------------- Solution 3 ------------------//
+    public int trap3(int[] height) {
+        // input validation
+        if (height == null || height.length < 3) {
+            return 0;
+        }
+
+        // 2 pointers
+        int sum = 0;
+        for(int i = 0, j = height.length - 1, k = 0; i < j; ) {
+            if (height[i] < height[j]) {
+                for (k = i + 1; height[k] < height[i] && k <= j; k++) {
+                    sum += height[i] - height[k];
+                }
+                i = k;
+            } else {
+                for (k = j - 1; height[k] < height[j] && k >= i; k--) {
+                    sum += height[j] - height[k];
+                }
+                j = k;
+            }
+        }
+        return sum;
+    }
+
+
+    ///////////////////  TEST //////////////////////
+    private static void test(TrappingRainWater solution, int[] bars) {
+        ArrayUtils.print1D(bars);
+        System.out.println(solution.trap3(bars));
+    }
+
+
     public static void main(String[] args) {
-        int[] A = {9,6,8,8,5,6,3};
-        int sum = (new TrappingRainWater()).trap(A);
-        int sum2 = (new TrappingRainWater()).trap2(A);
-        System.out.println(sum);
-        System.out.println(sum2);
+        TrappingRainWater solution = new TrappingRainWater();
+        int[] bars = {9,6,8,8,5,6,3};
+        test(solution, bars);
     }
 }

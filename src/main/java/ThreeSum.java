@@ -14,8 +14,7 @@ public class ThreeSum {
             if (i != 0 && num[i] == num[i - 1]) {
                 continue;
             }
-            int start = i + 1, end = num.length - 1;
-            while (start < end) {
+            for(int start = i + 1, end = num.length - 1; start < end; ) {
                 int curSum = num[start] + num[end] + num[i];
                 if (curSum == 0) {
                     List<Integer> triple = Arrays.asList(num[i], num[start], num[end]);
@@ -40,10 +39,4 @@ public class ThreeSum {
     }
 }
 
-//=========  TAG: ==========//
-// two pointers / kSum
-//
-//========= NOTE/ERROR: =========//
-// 1) Don't forget to sort
-// 2) pay attention to how to remove duplicates
 

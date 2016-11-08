@@ -46,13 +46,13 @@ public class NQueen {
 
     private boolean valid(char[][] board, int n, int row, int col) {
         for (int offset = 1; offset <= row; offset++) {
-            if (board[row - offset][col] == 'Q') {
+            if (board[row - offset][col] == 'Q') { // straight-up
                 return false;
             }
-            if (col - offset >= 0 && board[row - offset][col - offset] == 'Q') {
+            if (col - offset >= 0 && board[row - offset][col - offset] == 'Q') { // left-up
                 return false;
             }
-            if (col + offset < n && board[row - offset][col + offset] == 'Q') {
+            if (col + offset < n && board[row - offset][col + offset] == 'Q') { // right-upp
                 return false;
             }
         }
@@ -70,23 +70,20 @@ public class NQueen {
             return res;
         }
         // use a 1D-array to indicate solution
-        helper(res, new ArrayList<Integer>(), n);
+        helper(res, new ArrayList<Integer>(), n, 0);
         return res;
     }
 
-    private void helper(List<String[]> res, List<Integer> item, int n) {
-        if (item.size() == n) {
+    private void helper(List<String[]> res, List<Integer> item, int n, int row) {
+        if (row == n) {
             res.add(toResult(item, n));
             return;
         }
 
         for (int i = 0; i < n; i++) {
-            if (item.contains(i)) {
-                continue;
-            }
             item.add(i);
             if (valid(item)) {
-                helper(res, item, n);
+                helper(res, item, n, row + 1);
             }
             item.remove(item.size() - 1);
         }

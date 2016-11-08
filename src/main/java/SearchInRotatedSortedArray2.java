@@ -31,7 +31,9 @@ public class SearchInRotatedSortedArray2 {
 
             // not sure
             } else {
-                lo++;
+                while (lo <= mid && A[lo] == A[mid]) {
+                    lo++;
+                }
             }
         }
         return false;

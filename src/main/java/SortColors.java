@@ -10,7 +10,7 @@ public class SortColors {
 
         // count
         int[] counts = new int[3];
-        for (int i : A) {
+        for (int i: A) {
             counts[i]++;
         }
 
@@ -60,11 +60,13 @@ public class SortColors {
         int index0 = 0, index1 = 0;
         for (int i = 0; i < A.length; i++) {
             switch(A[i]) {
-                case 0: A[i] = 2;
+                case 0:
+                    A[i] = 2;
                     A[index1++] = 1;
                     A[index0++] = 0;
                     break;
-                case 1: A[i] = 2;
+                case 1:
+                    A[i] = 2;
                     A[index1++] = 1;
                     break;
             }
