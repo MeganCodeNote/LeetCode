@@ -2,12 +2,8 @@
 public class Sqrt {
     //-----------  Binary Search --------------//
     public int sqrt(int x) {
-        if (x < 0) {
-            return -1; // discuss this with interviewer, what answer do they want
-        }
-        if (x == 0) {
-            return 0;
-        }
+        if (x < 0)  return -1; // discuss this case with interviewer
+        if (x == 0) return 0;
 
         int lo = 1, hi = x / 2 + 1;
         while (lo <= hi) {
@@ -26,25 +22,20 @@ public class Sqrt {
 
     //-----------  Newton's method --------------//
     public int sqrt2(int x) {
-        if (x < 0) {
-            return -1; // discuss this with interviewer, what answer do they want
-        }
-        if (x == 0) {
-            return 0;
-        }
+        if (x < 0)  return -1; // discuss this case with interviewer
+        if (x == 0) return 0;
 
         // use Newton's method to solve the problem
-        double lastGuess = 0;
-        double guess = 1;
-        while (lastGuess != guess) {    // in java if abs(double1 - doubl2) <= epsilon, they are the same (not in C++ or Python)
+        double lastGuess = 0, guess = 1;     // use double to avoid looping for ever
+        while (lastGuess != guess) {         // in Java, equivalent to: abs(a-b) <= epsilon  (not so in C++ or Python)
             lastGuess = guess;
             guess = (guess + x / guess) / 2; // magic update derived from x - f(x)/f'(x)
         }
-        return (int) guess;
+        return (int) guess;                  // if return type is double, do not need to do the type casting
     }
 
     public static void main(String[] args) {
-        long x = (long)2147483647 * 2147483647;
-        System.out.println(x);
+        int x = 32;
+        System.out.println(new Sqrt().sqrt(x));
     }
 }

@@ -29,7 +29,7 @@ public class PowXN {
     // bitwise operation - recursion
     public double myPow2(double x, int n) {
         boolean negPow = n < 0;
-        long absN = Math.abs((long)n);
+        long absN = Math.abs((long)n);  // use long to prevent overflow
         double res = 1;
         for (int i = 31; i >= 0; i--) { // absN is long, start from the sign bit
             res = res * res;
